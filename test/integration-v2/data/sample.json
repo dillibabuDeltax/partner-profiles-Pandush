@@ -1,0 +1,9 @@
+{
+    "Sample":
+    {
+       "request_value":"{}",
+       "uri_value":"/locators/v1/clinics/count?latitude=32.885600&longitude=-96.963300&operation=list&searchRadius&resultCount=1",
+       "headers":"{\"x-api-key\":\"siw4H1vmVLtMVg1aPiorkjlG2PPi61tE\",\"Content-Type\":\"application/json\"}",
+       "response_verify":"xpath==statusCode&value==5012;xpath==statusDescription&value==Method not allowed"
+    }
+}

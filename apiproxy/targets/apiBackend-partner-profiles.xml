@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="apiBackend-partner-profiles">
+    <Description>spring boot RKE Target endpoint for callback and this connects to East and West</Description>
+	<FaultRules>
+	</FaultRules>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+	      <Algorithm>Weighted</Algorithm>
+	      <Server name="tsr-ipaas-infoarmor-io">
+	        <Weight>8</Weight>
+	      </Server>
+	    </LoadBalancer>
+    <Path>/vo/partner/profiles/</Path>
+    </HTTPTargetConnection>
+</TargetEndpoint>

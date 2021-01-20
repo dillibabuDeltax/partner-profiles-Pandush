@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+    </Policies>
+    <ProxyEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:1013190eb6fe25f6220bea9f2d0d1476362f9163301c96f65d195f3d0711c44952e90bbc207db829c9af2cd0a3f355ecacec10f91f4c5f17e4cea7fc3a07286a"/>
+    </ProxyEndpoints>
+    <Resources/>
+    <SharedFlows/>
+    <!-- This section is populated by proxy-gen tool -->
+    <TargetEndpoints>
+		<VersionInfo resourceName="apiBackend-partner-profiles" version="SHA-512:3f37a59368c6eec723031ab61e1f0bbcff14cbe7e0aa14873c82e27acfe729a240a43e91aae1095aa221192e34b04c92b081f8a769a657c097dc30cef4f82adc"/>
+		<VersionInfo resourceName="mock-partner-profiles" version="SHA-512:35e53dd0927af871a36bb3013e3945fd763b44680d6313d772fb4bb70bf9de2a1b9b7645d6abfd2066003a3aad0a638064e75a5d7ad6b12f95cee3bd9b231987"/>
+    </TargetEndpoints>
+</Manifest>

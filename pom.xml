@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>apigee</groupId>
+	<artifactId>partner-profiles-Pandush</artifactId>
+	<version>1.0.0</version>
+	<name>partner-profiles-Pandush</name>
+	<packaging>pom</packaging>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+
+	</pluginRepositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<org.slf4j.simpleLogger.defaultLogLevel>info</org.slf4j.simpleLogger.defaultLogLevel>
+		<project.root.dir>${basedir}</project.root.dir>
+		<target.root.dir>${basedir}/target</target.root.dir>
+		<deployment.suffix>${user.name}</deployment.suffix>
+		<commit></commit>
+		<branch></branch>
+		<!-- Jmeter properties -->
+		<webapp.protocol>https</webapp.protocol>
+		<webapp.host>www.mozilla.com</webapp.host>
+		<webapp.port>80</webapp.port>
+		<webapp.uris>${basedir}/target/test/perf/uris.txt</webapp.uris>
+		<jmeter.analysis.maven.plugin.version>1.0.6</jmeter.analysis.maven.plugin.version>
+		<jmeter-maven-plugin.version>2.9.0</jmeter-maven-plugin.version>
+		<test.duration>30</test.duration>
+		<test.threads>10</test.threads>
+		<!-- Jmeter properties -->
+	</properties>
+
+	<!-- This is where you add the environment specific properties under various profile names -->
+	<!-- For apigee.options, refer to "Advanced Configuration Options" under https://github.com/apigee/apigee-deploy-maven-plugin#pom-xml-sample -->
+	<profiles>
+		<profile>
+			<id>sandbox</id>
+			<properties>
+				<apigee.profile>sandbox</apigee.profile>
+				<apigee.env>sandbox</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@wip</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev1</id>
+			<properties>
+				<apigee.profile>dev1</apigee.profile>
+				<apigee.env>dev1</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@wip</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev2</id>
+			<properties>
+				<apigee.profile>dev2</apigee.profile>
+				<apigee.env>dev2</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev3</id>
+			<properties>
+				<apigee.profile>dev3</apigee.profile>
+				<apigee.env>dev3</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@wip</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>sit1</id>
+			<properties>
+				<apigee.profile>sit1</apigee.profile>
+				<apigee.env>sit1</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@wip</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>sit2</id>
+			<properties>
+				<apigee.profile>sit2</apigee.profile>
+				<apigee.env>sit2</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>sit3</id>
+			<properties>
+				<apigee.profile>sit3</apigee.profile>
+				<apigee.env>sit3</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@wip</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>perf</id>
+			<properties>
+				<apigee.profile>perf</apigee.profile>
+				<apigee.env>perf</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>mirage</id>
+			<properties>
+				<apigee.profile>mirage</apigee.profile>
+				<apigee.env>mirage</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>staging</id>
+			<properties>
+				<apigee.profile>staging</apigee.profile>
+				<apigee.env>staging</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<apigee.profile>prod</apigee.profile>
+				<apigee.env>prod</apigee.env>
+				<apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+				<apigee.apiversion>v1</apigee.apiversion>
+				<apigee.org>${org}</apigee.org>
+				<apigee.username>${username}</apigee.username>
+				<apigee.password>${password}</apigee.password>
+				<apigee.options>${options}</apigee.options>
+				<api.northbound.domain>${apigeeNorthBoundDomain}</api.northbound.domain>
+				<api.testtag>~@dbpl</api.testtag>				<!-- Skips any Work In Progress tests -->
+				<apigee.tokenurl>${tokenUrl}</apigee.tokenurl>
+				<apigee.authtype>${authType}</apigee.authtype>
+			</properties>
+		</profile>
+		<profile>
+			<id>performance</id>
+			<build>
+				<plugins>
+					<!-- execute JMeter test -->
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>${jmeter-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>test</id>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<propertiesUser>
+								<!--A user which accesses all URLs-->
+								<threadgroup00.name>test</threadgroup00.name>
+								<!--number of threads to use-->
+								<threadgroup00.numberOfThreads>${test.threads}</threadgroup00.numberOfThreads>
+								<!--delay of the test in seconds-->
+								<threadgroup00.scheduledDelay>0</threadgroup00.scheduledDelay>
+								<!--duration of the test in seconds-->
+								<threadgroup00.scheduledDuration>${test.duration}</threadgroup00.scheduledDuration>
+								<!--how long till all threads are up and running in seconds-->
+								<threadgroup00.rampUp>1</threadgroup00.rampUp>
+								<!--target throughput of all threads of the group per minute-->
+								<threadgroup00.throughput>100000000</threadgroup00.throughput>
+								<!-- use uris from given file -->
+								<threadgroup00.dataFile>${webapp.uris}</threadgroup00.dataFile>
+								<protocol>${webapp.protocol}</protocol>
+								<server>${webapp.host}</server>
+								<port>${webapp.port}</port>
+							</propertiesUser>
+							<testFilesDirectory>${basedir}/test/perf</testFilesDirectory>
+							<resultsDirectory>${basedir}/tmp/jmeter</resultsDirectory>
+
+							<ignoreResultFailures>true</ignoreResultFailures>
+							<resultsFileFormat>xml</resultsFileFormat>
+						</configuration>
+					</plugin>
+
+					<!-- execute JMeter analysis -->
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-analysis-maven-plugin</artifactId>
+						<version>${jmeter.analysis.maven.plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>analyze</goal>
+								</goals>
+								<phase>post-integration-test</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<!--
+                            source file that contains jmeter result data. Needs to be XML format or a GZIPed XML format
+                            -->
+							<source>${basedir}/tmp/jmeter/*</source>
+
+							<!--
+                            directory where to store analysis report files. At least a file "summary.txt" will be stored here.
+                            -->
+							<targetDirectory>${project.build.directory}/reports</targetDirectory>
+
+							<!--
+                            Defines groups of requests by URL patterns,
+                            e.g. URIs starting with /mock/page are associated with group "pages". All analysis results are
+                            If there is no such mapping then the threadgroups from the jmeter.xml are used.
+                            -->
+							<!--<requestGroups>-->
+							<!--<test>/en-US/firefox/**</test>-->
+							<!--</requestGroups>-->
+
+							<!--
+                            Mapping from resource URL to file name. Every resource will be downloaded and stored in 'targetDirectory'
+                            with the given filename. Tokens "_FROM_" and "_TO_" can be used as placeholders. These placeholders will
+                            be replaced by timestamps of execution interval (formatted as ISO8601, e.g. '20111216T145509+0100').
+                            -->
+							<!--<remoteResources>-->
+							<!--<property>-->
+							<!--<name>http://yourhost/path?from=_FROM_&amp;to=_TO_</name>-->
+							<!--<value>my_resource.txt</value>-->
+							<!--</property>-->
+							<!--</remoteResources>-->
+							<preserveDirectories>true</preserveDirectories>
+						</configuration>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>io.apigee.build-tools.enterprise4g</groupId>
+					<artifactId>apigee-edge-maven-plugin</artifactId>
+					<version>1.1.7</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!-- run jslint -->
+			<plugin>
+				<groupId>com.cj.jshintmojo</groupId>
+				<artifactId>jshint-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>jslint</id>
+						<phase>none</phase>
+						<goals>
+							<goal>lint</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<directories>
+						<directory>apiproxy/resources/jsc</directory>
+					</directories>
+					<reporter>jslint</reporter>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<!-- copy the full apiproxy folder to target folder -->
+					<execution>
+						<id>copy-resources</id>
+						<phase>none</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<!--source -->
+									<directory>${project.root.dir}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>apiproxy/**</include>
+										<include>test/integration/**</include>
+									</includes>
+								</resource>
+							</resources>
+							<!--target -->
+							<outputDirectory>${target.root.dir}</outputDirectory>
+						</configuration>
+					</execution>
+					<!-- copy the apickli config file to target folder. This is used during integration testing for every environment -->
+					<execution>
+						<id>copy-apickli-config</id>
+						<phase>none</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<!--source -->
+									<directory>${project.root.dir}</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>test/integration/*.json</include>
+									</includes>
+								</resource>
+							</resources>
+							<!--target -->
+							<outputDirectory>${target.root.dir}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Replaces tokens based on the values being templated -->
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.2</version>
+				<executions>
+
+					<execution>
+						<id>replace-apigee-northbound-domain</id>
+						<phase>none</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+						<configuration>
+							<basedir>${target.root.dir}</basedir>
+							<includes>
+								<include>test/integration/test-config.json</include>
+							</includes>
+							<replacements>
+								<replacement>
+									<token>dummy-api.example.com</token>
+									<value>${api.northbound.domain}</value>
+								</replacement>
+								<replacement>
+									<token>true</token>
+									<value>${mock.flag}</value>
+								</replacement>
+							</replacements>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>io.apigee.build-tools.enterprise4g</groupId>
+				<artifactId>apigee-edge-maven-plugin</artifactId>
+				<executions>
+					<!--configure bundle -->
+					<execution>
+						<id>configure-bundle-step</id>
+						<phase>none</phase>
+						<goals>
+							<goal>configure</goal>
+						</goals>
+					</execution>
+					<!--deploy bundle -->
+					<execution>
+						<id>deploy-bundle-step</id>
+						<phase>none</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<!-- npm install -->
+					<execution>
+						<id>npm-install</id>
+						<phase>none</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<commandlineArgs>
+								install
+							</commandlineArgs>
+						</configuration>
+					</execution>
+					<!-- run unit tests -->
+					<execution>
+						<id>unit</id>
+						<phase>none</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>./node_modules/mocha/bin/mocha</executable>
+							<commandlineArgs>
+								test/unit
+							</commandlineArgs>
+						</configuration>
+					</execution>
+					<!-- run performance tests -->
+					<execution>
+						<id>performance-test</id>
+						<phase>none</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<commandlineArgs>
+								verify -Pperformance
+							</commandlineArgs>
+						</configuration>
+					</execution>
+
+					<!-- run integration tests -->
+					<execution>
+						<id>integration-test</id>
+						<phase>none</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>./node_modules/.bin/cucumber.js</executable>
+							<commandlineArgs>
+								target/test/integration/features --tags ${api.testtag}
+							</commandlineArgs>
+						</configuration>
+					</execution>
+					<!-- run apigee lint -->
+					<execution>
+						<id>apigee-lint</id>
+						<phase>none</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>./node_modules/apigeelint/cli.js</executable>
+							<commandlineArgs>
+								-s ./apiproxy/ -f table.js -w ./target/reports/
+							</commandlineArgs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
